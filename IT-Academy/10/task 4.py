@@ -47,10 +47,10 @@ class Share:
             value=self.valid_number(input('Enter number >1 for radius'))
         return value
     def __init__(self, radiys=1, coord_x=0, coord_y=0, coord_z=0):
-        self.__radiys = self.number_bigest_1(self.valid_number(radiys))
-        self.__coord_x = coord_x
-        self.__coord_y = coord_y
-        self.__coord_z = coord_z
+        self.__radiys = 1
+        self.__coord_x = 0
+        self.__coord_y = 0
+        self.__coord_z = 0
 
 
 
@@ -60,14 +60,14 @@ class Share:
     def get_square(self):
         return 4 * pi * self.__radiys ** 2
 
-    def ger_radius(self):
+    def get_radius(self):
         return self.__radiys
 
     def get_sentre(self):
         return (self.__coord_x, self.__coord_y, self.__coord_z)
 
     def set_radius(self, value):
-        while self.__radiys<=self.valid_number(value):
+        while not 1<=self.valid_number(value):
             value=self.valid_number(input('Radius can not be <1 plus enter corect '))
         self.__radiys=self.valid_number(value)
 
@@ -85,28 +85,26 @@ class Share:
 
 
     def __str__(self):
-        return f' Radius - {self.__radiys}, coord x - {self.__coord_x}, coord y - {self.__coord_y}, coord z - {self.__coord_z}'
+        return f' Radius - {self.__radiys}, coord x - {self.__coord_x}, coord y - {self.__coord_y}, coord z - {self.__coord_z}, volume - {self.get_volume()}, square - {self.get_square()}'
 
 
 def interfase(answer: str):
     if answer.upper().strip() in (answer_true_dict[1], answer_true_dict[2]):
-        chois_user = Share(input('Enter radius <1 '), input("coord x "), input("Enter coord y "), input("coord z "))
-        print(
-            'What do you do показать:\n объем,площадь поверхности, радиус,  координаты центра или изменить:\n радиус, координаты центра?')
+        chois_user = Share()
+
 
         def corect_answer(answer_user):
 
-            while answer_user not in [answer_true_dict2[i + 1].lower().strip() for i in range(len(answer_true_dict2))]:
+            while answer_user.lower().strip() not in [answer_true_dict2[i + 1].lower().strip() for i in range(len(answer_true_dict2))]:
                 print('Not correct action')
-                answer_user = input(
-                    "Enter corect what do you do показать:\n объем,площадь поверхности, радиус,  координаты центра или изменить:\n радиус, координаты центра?' plise ")
+                answer_user = input(f'Выбері действіе {[i.lower().strip()+',' for i in answer_true_dict2.values()]} ')
             return answer_user
 
         print('Do you create share or  show share? Yes or not')
-        answer_user_yes_or_not = input("Enter yes or not ").upper()
+        answer_user_yes_or_not = input("Enter yes or not ").upper().strip()
         while answer_user_yes_or_not in (answer_true_dict[1], answer_true_dict[2]):
-            answer_user = input(
-                "What do you do показать:\n объем,площадь поверхности, радиус,  координаты центра или изменить:\n радиус, координаты центра, информашка ?")
+
+            answer_user =  input(f'Выбері действіе {[i.lower().strip() for i in answer_true_dict2.values()]} ')
             corect_answer(answer_user)
 
             if answer_user.lower().strip() == answer_true_dict2[1].lower().strip():
@@ -114,7 +112,7 @@ def interfase(answer: str):
             elif answer_user.lower().strip() == answer_true_dict2[2].lower().strip():
                 print(chois_user.get_square())
             elif answer_user.lower().strip() == answer_true_dict2[3].lower().strip():
-                print(chois_user.ger_radius())
+                print(chois_user.get_radius())
             elif answer_user.lower().strip() == answer_true_dict2[4].lower().strip():
                 print(chois_user.get_sentre())
             elif answer_user.lower().strip() == answer_true_dict2[5].lower().strip():
@@ -130,7 +128,7 @@ def interfase(answer: str):
             else:
                 print('Не отработало')
             print('Do you do new  action? Yes or not')
-            answer_user_yes_or_not = input("Enter yes or not ").upper()
+            answer_user_yes_or_not = input("Enter yes or not ").upper().strip()
 
 
 answer_true_dict = {1: 'ДА', 2: 'YES'}
