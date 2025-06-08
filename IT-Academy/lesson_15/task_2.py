@@ -1,12 +1,12 @@
-'''This program return range of fibonati if you get integer number'''
+'''This program return range of range 1-2-3-1-2-3 if you get integer number'''
 
 
 class Fibonatsi:
     def __init__(self, value):
         self.value = self.valid_number(value)
         self.count = 1
-        self.ferst_number = 0
-        self.second_number = 1
+        self.ferst_number = 1
+
 
     @staticmethod
     def valid_number(item):
@@ -21,14 +21,17 @@ class Fibonatsi:
 
     def __next__(self):
         if self.count <= self.value:
-            self.ferst_number, self.second_number = self.second_number, self.second_number + self.ferst_number
+            if self.ferst_number==3:
+                self.ferst_number=1
+
+            else:
+                self.ferst_number += 1
             self.count += 1
             return self.ferst_number
         else:
             raise StopIteration
 
-    def __str__(self):
-        return f'number {self.ferst_number}, this is {self.count} valume '
+
 
     def __iter__(self):
         return self
@@ -50,19 +53,19 @@ class Intefece:
     def new_ansfer_yes_not(self, new_amswer_yes):
         self.user_answer_yes_or_not = self.corest_yes_0r_not(new_amswer_yes)
 
-    def make_fibonati(self):
+    def make_range(self):
         result = Fibonatsi(input('Enter integer number '))
         for i in result:
-            print(i, end=' ')
+            print(i, end='-')
         print()
 
 
 print(__doc__)
-answer = input('Do you wont take fibonati enter yes or not ').lower().strip()
+answer = input('Do you wont take range enter yes or not ').lower().strip()
 user1 = Intefece(answer)
 
 while user1.user_answer_yes_or_not in ['yes', 'да']:
-    user1.make_fibonati()
-    user1.new_ansfer_yes_not(input('Do you wont take fibonati again enter yes or not '))
+    user1.make_range()
+    user1.new_ansfer_yes_not(input('Do you wont take range again enter yes or not '))
 
 print('See you again;)')
