@@ -1,0 +1,45 @@
+CREATE TABLE Emplouyess (
+	NAME  VARCHAR(10),
+	Positional TEXT,
+	Department TEXT,
+	Salary DESIMAL(10,2)
+);
+
+SELECT * FROM Emplouyess;
+
+INSERT INTO Emplouyess(NAME,Positional,Department,Salary)
+	VALUES
+	('Vasya1','1','sller',16000.1),
+	 ('Vasya2','2','pirat',1200.3),
+	 ('Vasya3','3','bilder',1700.2),
+ 	('Vasya4','4','solder',10000.4),
+ 	('Vasya5','5','doctor',150540.6);
+
+UPDATE Emplouyess
+	SET  Salary = 1900.0, Positional = 'senior builder'
+	where Name='Vasya1'
+
+ALTER TABLE Emplouyess
+ADD COLUMN Here_data DATA;
+
+UPDATE  Emplouyess
+	SET  Here_data = CASE
+    WHEN Name = 'Vasya1' THEN '2023-01-15'
+    WHEN Name = 'Vasya2' THEN '2022-05-20'
+    WHEN Name = 'Vasya3' THEN '2021-03-10'
+    WHEN Name = 'Vasya4' THEN '2020-07-25'
+    WHEN Name = 'Vasya5' THEN '2019-11-30'
+    ELSE  Here_data -- Оставить текущее значение, если имя не совпадает
+END;
+
+SELECT Name,Department,Salary FROM  Emplouyess where  Department='bilder'
+
+SELECT Name,Department,Salary FROM  Emplouyess where  Salary>5000
+
+SELECT Name,Department,Salary FROM  Emplouyess where  Positional='2'
+
+
+SELECT AVG(Salary) from Emplouyess
+
+
+DROP TABLE Emplouyess
