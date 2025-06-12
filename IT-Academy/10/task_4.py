@@ -27,6 +27,7 @@ class Descriptor:
 
         instance.__dict__[self.name] = self.valid_number(value)
 
+
 class Share:
     radiys = Descriptor()
     coord_x = Descriptor()
@@ -42,17 +43,16 @@ class Share:
                 value = input('Enter integer or float number please ')
         return value
 
-    def number_bigest_1(self,value):
-        while value<=1:
-            value=self.valid_number(input('Enter number >1 for radius'))
+    def number_bigest_one(self, value):
+        while value <= 1:
+            value = self.valid_number(input('Enter number >1 for radius'))
         return value
+
     def __init__(self, radiys=1, coord_x=0, coord_y=0, coord_z=0):
         self.__radiys = 1
         self.__coord_x = 0
         self.__coord_y = 0
         self.__coord_z = 0
-
-
 
     def get_volume(self):
         return 3 / 4 * pi * self.__radiys ** 2
@@ -67,9 +67,9 @@ class Share:
         return (self.__coord_x, self.__coord_y, self.__coord_z)
 
     def set_radius(self, value):
-        while not 1<=self.valid_number(value):
-            value=self.valid_number(input('Radius can not be <1 plus enter corect '))
-        self.__radiys=self.valid_number(value)
+        while not 1 <= self.valid_number(value):
+            value = self.valid_number(input('Radius can not be <1 plus enter corect '))
+        self.__radiys = self.valid_number(value)
 
     def set_center(self, x, y, z):
         self.__coord_x = self.valid_number(x)
@@ -83,7 +83,6 @@ class Share:
             return False
         return True
 
-
     def __str__(self):
         return f' Radius - {self.__radiys}, coord x - {self.__coord_x}, coord y - {self.__coord_y}, coord z - {self.__coord_z}, volume - {self.get_volume()}, square - {self.get_square()}'
 
@@ -92,19 +91,19 @@ def interfase(answer: str):
     if answer.upper().strip() in (answer_true_dict[1], answer_true_dict[2]):
         chois_user = Share()
 
-
         def corect_answer(answer_user):
 
-            while answer_user.lower().strip() not in [answer_true_dict2[i + 1].lower().strip() for i in range(len(answer_true_dict2))]:
+            while answer_user.lower().strip() not in [answer_true_dict2[i + 1].lower().strip() for i in
+                                                      range(len(answer_true_dict2))]:
                 print('Not correct action')
-                answer_user = input(f'Выбері действіе {[i.lower().strip()+',' for i in answer_true_dict2.values()]} ')
+                answer_user = input(f'Выбері действіе {[i.lower().strip() + ',' for i in answer_true_dict2.values()]} ')
             return answer_user
 
         print('Do you create share or  show share? Yes or not')
         answer_user_yes_or_not = input("Enter yes or not ").upper().strip()
         while answer_user_yes_or_not in (answer_true_dict[1], answer_true_dict[2]):
 
-            answer_user =  input(f'Выбері действіе {[i.lower().strip() for i in answer_true_dict2.values()]} ')
+            answer_user = input(f'Выбері действіе {[i.lower().strip() for i in answer_true_dict2.values()]} ')
             corect_answer(answer_user)
 
             if answer_user.lower().strip() == answer_true_dict2[1].lower().strip():
@@ -133,7 +132,8 @@ def interfase(answer: str):
 
 answer_true_dict = {1: 'ДА', 2: 'YES'}
 answer_true_dict2 = {1: 'объем', 2: 'площадь поверхности', 3: 'показать радиус ', 4: 'показать координаты центра ',
-                     5: 'изменить радиус', 6: 'изменить координаты центра', 7: 'Лежит ли точка в приделаж сферы',8: 'информашка'}
+                     5: 'изменить радиус', 6: 'изменить координаты центра', 7: 'Лежит ли точка в приделаж сферы',
+                     8: 'информашка'}
 
 print("Hello")
 print(__doc__)

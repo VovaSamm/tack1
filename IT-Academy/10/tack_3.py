@@ -17,7 +17,8 @@ class Car:
         self.status = 'Твоя шоха заглохла :('
 
     def information(self):
-        print(f'Цвет тачкм - {self.color}, тип тачки {self.type}, возвраст тaчки - {self.year },  статус - машины - {self.status} ')
+        print(
+            f'Цвет тачкм - {self.color}, тип тачки {self.type}, возвраст тaчки - {self.year},  статус - машины - {self.status} ')
 
 
 def interfase(answer: str):
@@ -26,14 +27,15 @@ def interfase(answer: str):
         print('What do you do start,stop,info ?')
 
         def corect_answer(answer_user):
-                while answer_user not in (answer_true_dict2[1], answer_true_dict2[2], answer_true_dict2[3]):
-                    print('Not correct action')
-                    answer_user = input("Enter start,stop or info plise ")
-                return answer_user
+            while answer_user not in (answer_true_dict2[1], answer_true_dict2[2], answer_true_dict2[3]):
+                print('Not correct action')
+                answer_user = input("Enter start,stop or info plise ")
+            return answer_user
+
         print('Do you create status auto? Yes or not')
-        answer_user_yes_or_not=input("Enter yes or not ").upper()
-        while answer_user_yes_or_not in (answer_true_dict[1],answer_true_dict[2]):
-            answer_user=input("Enter start,stop or info ")
+        answer_user_yes_or_not = input("Enter yes or not ").upper()
+        while answer_user_yes_or_not in (answer_true_dict[1], answer_true_dict[2]):
+            answer_user = input("Enter start,stop or info ")
             corect_answer(answer_user)
             if answer_user.lower().strip() == answer_true_dict2[1]:
                 chois_user.start_of_car()
