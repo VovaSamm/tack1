@@ -1,0 +1,95 @@
+
+CREATE TABLE authors (
+
+    id SERIAL PRIMARY KEY,
+
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL
+);
+
+
+
+
+
+CREATE TABLE books (
+
+    id SERIAL PRIMARY KEY
+
+    title VARCHAR(255) NOT NULL,
+    author_id INT,
+    publication_year INT,
+    FOREIGN KEY (author_id) REFERENCES authors(id)
+);
+
+
+
+
+CREATE TABLE sales (
+
+    id SERIAL PRIMARY KEY
+
+    book_id INT,
+    quantity INT NOT NULL,
+    FOREIGN KEY (book_id) REFERENCES books(id)
+);
+
+
+
+
+
+
+
+INSERT INTO authors (first_name, last_name) VALUES
+('George', 'Orwell'),
+('J.K.', 'Rowling'),
+('J.R.R.', 'Tolkien'),
+('Agatha', 'Christie'),
+('Isaac', 'Asimov');
+
+
+
+
+INSERT INTO books (title, author_id, publication_year) VALUES
+('1984', 1, 1949),
+('Harry Potter and the Philosopher''s Stone', 2, 1997),
+('The Hobbit', 3, 1937),
+('Murder on the Orient Express', 4, 1934),
+('Foundation', 5, 1951);
+
+
+
+INSERT INTO sales (book_id, quantity) VALUES
+(1, 10),
+(2, 5),
+(3, 8),
+(4, 12),
+(5, 15);
+
+
+
+SELECT
+    authors.first_name AS AuthorFirstName,
+    authors.last_name AS AuthorLastName,
+    COUNT(sales.quantity) AS TotalBooksSold
+FROM
+    authors
+INNER JOIN
+    books ON authors.id = books.author_id
+INNER JOIN
+    sales ON books.id = sales.book_id
+GROUP BY
+    authors.id, authors.first_name, authors.last_name;
+
+SELECT
+    authors.first_name AS AuthorFirstName,
+    authors.last_name AS AuthorLastName,
+    COALESCE(SUM(sales.quantity), 0) AS TotalBooksSold
+FROM
+    authors
+LEFT JOIN
+    books ON authors.id = books.author_id
+LEFT JOIN
+    sales ON books.id = sales.book_id
+GROUP BY
+    authors.id, authors.first_name, authors.last_name;
+
