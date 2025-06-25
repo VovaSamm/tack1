@@ -1,0 +1,70 @@
+
+CREATE TABLE Departments (
+    department_id SERIAL PRIMARY KEY,
+    department_name VARCHAR(100) NOT NULL,
+    location VARCHAR(100),
+    head_professor_id INT UNIQUE,
+    FOREIGN KEY (head_professor_id) REFERENCES Professors(professor_id)
+);
+
+CREATE TABLE Professors (
+    professor_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100),
+    phone_number VARCHAR(20)
+
+);
+
+CREATE TABLE Students (
+    student_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_birth DATE,
+    email VARCHAR(100),
+    phone_number VARCHAR(20),
+    address VARCHAR(100)
+);
+
+
+CREATE TABLE Courses (
+    course_id SERIAL PRIMARY KEY,
+    course_name VARCHAR(100) NOT NULL,
+    credits INT,
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES Departments(department_id)
+);
+
+
+CREATE TABLE Enrollments (
+    student_id INT,
+    course_id INT,
+    enrollment_date DATE,
+    is_active BOOLEAN,
+    grade VARCHAR(2),
+    PRIMARY KEY (student_id, course_id),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id)
+);
+
+
+CREATE TABLE Classrooms (
+    classroom_id SERIAL PRIMARY KEY,
+    building VARCHAR(100),
+    room_number VARCHAR(10),
+    capacity INT
+);
+
+
+CREATE TABLE Schedule (
+    schedule_id SERIAL PRIMARY KEY,
+    course_id INT,
+    professor_id INT,
+    classroom_id INT,
+    day_of_week VARCHAR(20),
+    start_time TIME,
+    end_time TIME,
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id),
+    FOREIGN KEY (professor_id) REFERENCES Professors(professor_id),
+    FOREIGN KEY (classroom_id) REFERENCES Classrooms(classroom_id)
+);
